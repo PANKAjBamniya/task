@@ -68,11 +68,11 @@ function Content() {
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                         <span className="text-xs text-gray-500">
-                          {filteredTasks.filter((t: Task) => t.completed).length} completed
+                          {filteredTasks.filter((t) => t.completed).length} completed
                         </span>
                       </div>
                     </div>
-                    {filteredTasks.map((task: Task, index: null) => (
+                    {filteredTasks.map((task: Task, index) => (
                       <div
                         key={task.id}
                         style={{

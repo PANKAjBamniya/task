@@ -1,14 +1,23 @@
-import { createContext, useContext, useState } from "react";
+import {
+    createContext,
+    useContext,
+    useState,
+    type ReactNode,
+} from "react";
 import { useTasks } from "../hooks/useTasks";
 import { filterTasks } from "../utils/filterTasks";
 import type { SortOption, Task } from "../types/task";
+
+/* -------------------- TYPES -------------------- */
+
+export type Filter = "all" | "active" | "completed";
 
 export type EditState = {
     isEdit: boolean;
     task: Task | null;
 };
 
-export type TaskContextType = {
+export interface TaskContextType {
     tasks: Task[];
     filteredTasks: Task[];
 
@@ -16,53 +25,65 @@ export type TaskContextType = {
     undo: () => void;
     redo: () => void;
 
-    setFilter: (value: string) => void;
-    setSort: (value: string) => void;
+    filter: Filter;
+    setFilter: (value: Filter) => void;
 
     sortBy: SortOption;
     setSortBy: (value: SortOption) => void;
-
 
     // edit flow
     editState: EditState;
     setEditState: React.Dispatch<React.SetStateAction<EditState>>;
     onEditClick: (task: Task) => void;
-};
+}
 
-const TaskContext = createContext<TaskContextType | null>(null);
+/* -------------------- CONTEXT -------------------- */
 
+const TaskContext = createContext<TaskContextType | undefined>(
+    undefined
+);
 
-export function TaskProvider({ children }: { children: React.ReactNode }) {
+/* -------------------- PROVIDER -------------------- */
+
+export function TaskProvider({ children }: { children: ReactNode }) {
     const { state, set, undo, redo } = useTasks();
-    const [filter, setFilter] = useState("all");
-    const [sort, setSort] = useState("date");
+
+    const [filter, setFilter] = useState<Filter>("all");
     const [sortBy, setSortBy] = useState<SortOption>("date");
-    const [editState, setEditState] = useState<{
-        isEdit: boolean;
-        task: Task | null;
-    }>({
+
+    const [editState, setEditState] = useState<EditState>({
         isEdit: false,
-        task: null
+        task: null,
     });
 
-
-    const filteredTasks = filterTasks(state, filter, sort);
-
+    const filteredTasks = filterTasks(state, filter, sortBy);
 
     const onEditClick = (task: Task) => {
-        // console.log(editState)
         setEditState({
             isEdit: true,
-            task: { ...task }
+            task: { ...task },
         });
     };
-
 
     return (
         <TaskContext.Provider
             value={{
-                tasks: state, set, undo, redo, setFilter, setSort, filteredTasks, onEditClick, sortBy, setSortBy,
-                editState, setEditState
+                tasks: state,
+                filteredTasks,
+
+                set,
+                undo,
+                redo,
+
+                filter,
+                setFilter,
+
+                sortBy,
+                setSortBy,
+
+                editState,
+                setEditState,
+                onEditClick,
             }}
         >
             {children}
@@ -70,4 +91,16 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
     );
 }
 
-export const useTasksContext = () => useContext(TaskContext);
+/* --- HOOK ---- */
+
+export function useTasksContext(): TaskContextType {
+    const context = useContext(TaskContext);
+
+    if (!context) {
+        throw new Error(
+            "useTasksContext must be used within a TaskProvider"
+        );
+    }
+
+    return context;
+}
