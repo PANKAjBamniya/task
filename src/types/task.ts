@@ -1,5 +1,8 @@
 export type Priority = "low" | "medium" | "high";
 
+export type SortOption = "default" | "alphabetical" | "date";
+
+
 export interface SubTask {
     id: string;
     title: string;

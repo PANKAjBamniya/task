@@ -12,7 +12,7 @@ export default function TaskItem({ task }: { task: Task }) {
     const addSubTask = () => {
         if (!subTitle.trim()) return;
 
-        const updatedTasks = tasks.map(t =>
+        const updatedTasks = tasks.map((t: Task) =>
             t.id === task.id
                 ? {
                     ...t,
@@ -38,7 +38,7 @@ export default function TaskItem({ task }: { task: Task }) {
             t.id === task.id ? { ...t, completed: !t.completed } : t
         ));
 
-    const editTask = (task) => {
+    const editTask = (task: Task) => {
         // console.log(task)
         onEditClick(task)
     }

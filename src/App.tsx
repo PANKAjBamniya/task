@@ -43,7 +43,7 @@ function Content() {
               <div className="mb-6">
                 <div className="grid grid-cols-2 gap-3">
                   <FilterBar />
-                  <SortBar />
+                  {/* <SortBar /> */}
                 </div>
               </div>
 
