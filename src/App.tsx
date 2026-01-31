@@ -1,8 +1,8 @@
 import FilterBar from "./components/Filters/FilterBar";
-import SortBar from "./components/Filters/SortBar";
 import TaskForm from "./components/Task/TaskForm";
 import TaskItem from "./components/Task/TaskItem";
 import { TaskProvider, useTasksContext } from "./context/TaskContext";
+import type { Task } from "./types/task";
 
 function Content() {
   const { filteredTasks } = useTasksContext();
@@ -68,11 +68,11 @@ function Content() {
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                         <span className="text-xs text-gray-500">
-                          {filteredTasks.filter(t => t.completed).length} completed
+                          {filteredTasks.filter((t: Task) => t.completed).length} completed
                         </span>
                       </div>
                     </div>
-                    {filteredTasks.map((task, index) => (
+                    {filteredTasks.map((task: Task, index: null) => (
                       <div
                         key={task.id}
                         style={{

@@ -22,6 +22,7 @@ export type TaskContextType = {
     sortBy: SortOption;
     setSortBy: (value: SortOption) => void;
 
+
     // edit flow
     editState: EditState;
     setEditState: React.Dispatch<React.SetStateAction<EditState>>;
@@ -35,7 +36,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
     const { state, set, undo, redo } = useTasks();
     const [filter, setFilter] = useState("all");
     const [sort, setSort] = useState("date");
-    // const [sortBy, setSortBy] = useState<SortOption>("date");
+    const [sortBy, setSortBy] = useState<SortOption>("date");
     const [editState, setEditState] = useState<{
         isEdit: boolean;
         task: Task | null;
@@ -60,7 +61,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
     return (
         <TaskContext.Provider
             value={{
-                tasks: state, set, undo, redo, setFilter, setSort, filteredTasks, onEditClick,
+                tasks: state, set, undo, redo, setFilter, setSort, filteredTasks, onEditClick, sortBy, setSortBy,
                 editState, setEditState
             }}
         >

@@ -34,16 +34,15 @@ export default function TaskItem({ task }: { task: Task }) {
     };
 
     const toggle = () =>
-        set(tasks.map(t =>
+        set(tasks.map((t: Task) =>
             t.id === task.id ? { ...t, completed: !t.completed } : t
         ));
 
     const editTask = (task: Task) => {
-        // console.log(task)
         onEditClick(task)
     }
     const deleteTask = () =>
-        set(tasks.filter(t => t.id !== task.id));
+        set(tasks.filter((t: Task) => t.id !== task.id));
 
     const completedSubtasks = task.subtasks.filter(st => st.completed).length;
     const totalSubtasks = task.subtasks.length;
@@ -138,16 +137,7 @@ export default function TaskItem({ task }: { task: Task }) {
                 <div className="flex gap-2 ml-10 mt-3">
                     <button
                         onClick={() => setShowSubtask(prev => !prev)}
-                        className="
-                            flex items-center gap-2 px-4 py-2
-                            bg-blue-500/10 hover:bg-blue-500/20
-                            border border-blue-500/30 hover:border-blue-400/60
-                            text-blue-400 hover:text-blue-300
-                            rounded-xl text-sm font-medium
-                            transition-all duration-200 ease-out
-                            hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-500/20
-                            active:translate-y-0 active:scale-95
-                        "
+                        className="flex items-center gap-2 px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 hover:border-blue-400/60 text-blue-400 hover:text-blue-300 rounded-xl text-sm font-medium  transition-all duration-200 ease-out  hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-500/20 active:translate-y-0 active:scale-95    "
                     >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
@@ -166,16 +156,7 @@ export default function TaskItem({ task }: { task: Task }) {
 
                     <button
                         onClick={deleteTask}
-                        className="
-    flex items-center gap-2 px-4 py-2
-    bg-red-500/10 hover:bg-red-500/20
-    border border-red-500/30 hover:border-red-400/60
-    text-red-400 hover:text-red-300
-    rounded-xl text-sm font-medium
-    transition-all duration-200 ease-out
-    hover:-translate-y-0.5 hover:shadow-lg hover:shadow-red-500/20
-    active:scale-95
-  "
+                        className=" flex items-center gap-2 px-4 py-2 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 hover:border-red-400/60 text-red-400 hover:text-red-300  rounded-xl text-sm font-medium transition-all duration-200 ease-out  hover:-translate-y-0.5 hover:shadow-lg hover:shadow-red-500/20 active:scale-95"
                     >
                         🗑 Delete
                     </button>
