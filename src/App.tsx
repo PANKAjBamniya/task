@@ -18,7 +18,7 @@ function Content() {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 flex items-start justify-center p-4 md:p-8 lg:p-12 min-h-screen">
+      <div className="relative z-10 flex items-start justify-center p-2 md:p-8 lg:p-12 min-h-screen">
         <div className="w-full max-w-2xl">
           {/* Header */}
           <div className="text-center mb-8 animate-fadeIn">
@@ -34,7 +34,7 @@ function Content() {
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
 
             {/* Card content */}
-            <div className="relative bg-gray-800/80 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-6 md:p-8 shadow-2xl">
+            <div className="relative bg-gray-800/80 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-4 md:p-8 shadow-2xl">
               {/* Task Form */}
               <div className="mb-6">
                 <TaskForm />

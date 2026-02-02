@@ -1,3 +1,4 @@
+import { BiRedo, BiUndo } from "react-icons/bi";
 import { useTasksContext } from "../../context/TaskContext";
 
 
@@ -12,17 +13,18 @@ export default function TaskHeader() {
                 <button
                     onClick={undo}
                     disabled={!canUndo}
-                    className="px-4 py-2 rounded-lg bg-gray-700 text-white disabled:opacity-40"
+                    className="px-3 py-1 rounded-lg bg-gray-700 text-white disabled:opacity-40 flex items-center"
                 >
-                    ⬅ Undo
+                    <BiUndo />
+                    Undo
                 </button>
 
                 <button
                     onClick={redo}
                     disabled={!canRedo}
-                    className="px-4 py-2 rounded-lg bg-gray-700 text-white disabled:opacity-40"
+                    className="px-3 py-1 rounded-lg bg-gray-700 text-white disabled:opacity-40 flex items-center"
                 >
-                    ➡ Redo
+                    <BiRedo /> Redo
                 </button>
             </div>
         </div >

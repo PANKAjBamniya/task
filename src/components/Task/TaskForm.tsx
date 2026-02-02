@@ -74,7 +74,7 @@ export default function TaskForm() {
                 <button
                     type="submit"
                     disabled={!title.trim()}
-                    className="px-6 py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:from-gray-700 disabled:to-gray-700 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg flex items-center gap-2"
+                    className="px-6 py-4 bg-gradient-to-r shadow shadow-gray-400 from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:from-gray-700 disabled:to-gray-700 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed  flex items-center gap-2"
                 >
                     <svg
                         className="w-5 h-5"
