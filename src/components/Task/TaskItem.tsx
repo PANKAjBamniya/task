@@ -99,15 +99,34 @@ export default function TaskItem({ task }: { task: Task }) {
 
                     {/* Task title and progress */}
                     <div className="flex-1 min-w-0 mt-1">
-                        <p className={`
-                            text-lg font-medium transition-all duration-300 leading-5 wrap-break-word
-                            ${task.completed
-                                ? 'text-gray-400 line-through opacity-60'
-                                : 'text-white'
-                            }
-                        `}>
-                            {task.title}
-                        </p>
+                        <div className="flex flex-col gap-1">
+                            {/* Title */}
+                            <p
+                                className={`
+      text-lg font-medium leading-5 break-words transition-all duration-300
+      ${task.completed
+                                        ? "text-gray-400 line-through opacity-60"
+                                        : "text-white"
+                                    }
+    `}
+                            >
+                                {task.title}
+                            </p>
+
+                            {/* Category */}
+                            <p
+                                className={`
+      text-sm leading-4 transition-all duration-300
+      ${task.completed
+                                        ? "text-gray-500 opacity-50"
+                                        : "text-gray-400"
+                                    }
+    `}
+                            >
+                                {task.category}
+                            </p>
+                        </div>
+
 
                         {/* Progress bar for subtasks */}
                         {totalSubtasks > 0 && (

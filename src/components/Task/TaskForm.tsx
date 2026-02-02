@@ -6,22 +6,32 @@ export default function TaskForm() {
     const { set, editState, setEditState } = useTasksContext();
 
     const [title, setTitle] = useState<string>("");
+    const [showTitleError, setShowTitleError] = useState<boolean>(false);
+
+    const [category, setCategory] = useState<string>("");
     const [isFocused, setIsFocused] = useState<boolean>(false);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!title.trim()) return;
+
+        if (!title.trim()) {
+            setShowTitleError(true);
+            return;
+        }
+
+        setShowTitleError(false);
 
         if (editState.isEdit && editState.task) {
             set((prev) =>
                 prev.map((t) =>
                     t.id === editState.task?.id
-                        ? { ...t, title: title.trim() }
+                        ? { ...t, title: title.trim(), category }
                         : t
                 )
             );
 
             setTitle("");
+            setCategory("");
             setEditState({ isEdit: false, task: null });
             return;
         }
@@ -29,6 +39,7 @@ export default function TaskForm() {
         const newTask: Task = {
             id: crypto.randomUUID(),
             title: title.trim(),
+            category,
             completed: false,
             priority: "medium",
             tags: [],
@@ -38,16 +49,42 @@ export default function TaskForm() {
 
         set((prev) => [...prev, newTask]);
         setTitle("");
+        setCategory("");
     };
+
 
     useEffect(() => {
         if (editState.isEdit && editState.task) {
             setTitle(editState.task.title);
+            setCategory(editState.task.category ?? "");
         }
     }, [editState]);
 
+
     return (
         <form onSubmit={handleSubmit} className="relative">
+            <div className="mb-2">
+                <select
+                    value={category}
+                    onChange={(e) => {
+                        setCategory(e.target.value);
+                        if (showTitleError) setShowTitleError(false);
+                    }}
+                    className="w-full mt-3 px-5 py-4 bg-gray-900/50 border border-gray-600/50 focus:border-purple-500/50 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                >
+                    <option value="">Select category</option>
+                    <option value="work">Work</option>
+                    <option value="personal">Personal</option>
+                    <option value="study">Study</option>
+                    <option value="health">Health</option>
+                </select>
+                {showTitleError && (
+                    <p className="text-sm text-red-500 px-2 mt-1">
+                        Please select a category
+                    </p>
+                )}
+
+            </div>
             {isFocused && (
                 <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl blur-lg transition-opacity duration-300" />
             )}
@@ -64,16 +101,18 @@ export default function TaskForm() {
                         className="w-full px-5 py-4 bg-gray-900/50 border border-gray-600/50 focus:border-blue-500/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
                     />
 
+
+
                     {title.length > 0 && (
                         <div className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-gray-500">
                             {title.length}
                         </div>
                     )}
+
                 </div>
 
                 <button
                     type="submit"
-                    disabled={!title.trim()}
                     className="px-6 py-4 bg-gradient-to-r shadow shadow-gray-400 from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:from-gray-700 disabled:to-gray-700 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed  flex items-center gap-2"
                 >
                     <svg
@@ -87,6 +126,11 @@ export default function TaskForm() {
                     <span className="hidden sm:inline">Save</span>
                 </button>
             </div>
+            {
+                showTitleError && (
+                    <p className="texte-sm text-red-500 p-2">Please enter a task title</p>
+                )
+            }
         </form>
     );
 }

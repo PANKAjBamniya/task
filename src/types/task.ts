@@ -12,6 +12,7 @@ export interface SubTask {
 export interface Task {
     id: string;
     title: string;
+    category: string;
     completed: boolean;
     priority: Priority;
     dueDate?: string;
