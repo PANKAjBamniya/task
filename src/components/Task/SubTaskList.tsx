@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useTasksContext } from "../../context/TaskContext";
-import type { Subtask } from "../../types/task";
+import type { SubTask } from "../../types/task";
 
 interface SubTaskListProps {
-    subtasks: Subtask[];
+    subtasks: SubTask[];
 }
 
 export default function SubTaskList({ subtasks }: SubTaskListProps) {
@@ -22,7 +22,7 @@ export default function SubTaskList({ subtasks }: SubTaskListProps) {
     );
 }
 
-function SubTaskItem({ subtask, index }: { subtask: Subtask; index: number }) {
+function SubTaskItem({ subtask, index }: { subtask: SubTask; index: number }) {
     const { tasks, set } = useTasksContext();
     const [isHovered, setIsHovered] = useState(false);
 

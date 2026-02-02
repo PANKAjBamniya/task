@@ -1,6 +1,7 @@
 import FilterBar from "./components/Filters/FilterBar";
 import TaskForm from "./components/Task/TaskForm";
 import TaskItem from "./components/Task/TaskItem";
+import TaskHeader from "./components/UI/TaskHeader";
 import { TaskProvider, useTasksContext } from "./context/TaskContext";
 import type { Task } from "./types/task";
 
@@ -45,6 +46,11 @@ function Content() {
                   <FilterBar />
                   {/* <SortBar /> */}
                 </div>
+              </div>
+
+              {/* Undo & Redo */}
+              <div>
+                <TaskHeader />
               </div>
 
               {/* Task List */}

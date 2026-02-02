@@ -24,6 +24,9 @@ export interface TaskContextType {
     set: React.Dispatch<React.SetStateAction<Task[]>>;
     undo: () => void;
     redo: () => void;
+    canUndo: boolean;
+    canRedo: boolean;
+
 
     filter: Filter;
     setFilter: (value: Filter) => void;
@@ -46,7 +49,7 @@ const TaskContext = createContext<TaskContextType | undefined>(
 /* -------------------- PROVIDER -------------------- */
 
 export function TaskProvider({ children }: { children: ReactNode }) {
-    const { state, set, undo, redo } = useTasks();
+    const { state, set, undo, redo, canUndo, canRedo } = useTasks();
 
     const [filter, setFilter] = useState<Filter>("all");
     const [sortBy, setSortBy] = useState<SortOption>("date");
@@ -74,6 +77,8 @@ export function TaskProvider({ children }: { children: ReactNode }) {
                 set,
                 undo,
                 redo,
+                canUndo,
+                canRedo,
 
                 filter,
                 setFilter,
